@@ -1,6 +1,7 @@
 name = "num-rational"
 description = "Rational numbers (Ratio<T>) — ETNA workload."
 language = "rust"
+strategies = ["proptest", "quickcheck", "crabcheck", "hegel"]
 crate = "num-rational"
 base_commit = "4d55ad22ac86ebbc4cb45d79a956e4a1f7af57d1"
 
