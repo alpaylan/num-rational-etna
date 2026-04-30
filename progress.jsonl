@@ -1,0 +1,41 @@
+{"ts": "2026-04-30T05:33:18Z", "stage": "discover", "event": "start"}
+{"ts": "2026-04-30T05:33:18Z", "stage": "discover", "event": "candidate", "hash": "33bbb54", "subject": "Fix CheckedDiv with zeros", "files": 1, "hunks": 1}
+{"ts": "2026-04-30T05:33:18Z", "stage": "discover", "event": "candidate", "hash": "8c75506", "subject": "Ratio::recip now corrects sign and fails for zero", "files": 1, "hunks": 1}
+{"ts": "2026-04-30T05:33:18Z", "stage": "discover", "event": "candidate", "hash": "c22e3bf", "subject": "Correct Ratio::is_negative and Ratio::is_positive", "files": 1, "hunks": 1}
+{"ts": "2026-04-30T05:33:18Z", "stage": "discover", "event": "candidate", "hash": "e10ca81", "subject": "Fix #49", "files": 1, "hunks": 1}
+{"ts": "2026-04-30T05:33:18Z", "stage": "discover", "event": "candidate", "hash": "4e66bbe", "subject": "Avoid overflows in Ratio Ord cmp", "files": 1, "hunks": 1}
+{"ts": "2026-04-30T05:33:18Z", "stage": "discover", "event": "done", "commits_scanned": 958, "fix_commits": 5}
+{"ts": "2026-04-30T05:38:33Z", "stage": "atomize", "event": "start", "total_candidates": 5}
+{"ts": "2026-04-30T05:38:33Z", "stage": "atomize", "event": "variant_skipped", "name": "checked_div_zero_returns_none_33bbb54_1", "i": 1, "of": 5, "reason": "surface refactored: 6903b6b short-circuits 0/0 via self.denom==rhs.denom branch, the bug path is no longer reachable through Ratio::new"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "atomize", "event": "variant_start", "name": "recip_zero_panic_and_sign_norm_8c75506_1", "i": 2, "of": 5}
+{"ts": "2026-04-30T05:47:57Z", "stage": "atomize", "event": "variant_detected", "name": "recip_zero_panic_and_sign_norm_8c75506_1", "i": 2, "of": 5, "injection": "marauders"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "atomize", "event": "variant_committed", "name": "recip_zero_panic_and_sign_norm_8c75506_1", "i": 2, "of": 5, "injection": "marauders"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "atomize", "event": "variant_start", "name": "is_pos_neg_zero_excluded_c22e3bf_1", "i": 3, "of": 5}
+{"ts": "2026-04-30T05:47:57Z", "stage": "atomize", "event": "variant_detected", "name": "is_pos_neg_zero_excluded_c22e3bf_1", "i": 3, "of": 5, "injection": "marauders"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "atomize", "event": "variant_committed", "name": "is_pos_neg_zero_excluded_c22e3bf_1", "i": 3, "of": 5, "injection": "marauders"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "atomize", "event": "variant_start", "name": "cmp_zero_numer_equal_e10ca81_1", "i": 4, "of": 5}
+{"ts": "2026-04-30T05:47:57Z", "stage": "atomize", "event": "variant_detected", "name": "cmp_zero_numer_equal_e10ca81_1", "i": 4, "of": 5, "injection": "marauders"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "atomize", "event": "variant_committed", "name": "cmp_zero_numer_equal_e10ca81_1", "i": 4, "of": 5, "injection": "marauders"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "atomize", "event": "variant_start", "name": "cmp_overflow_safe_4e66bbe_1", "i": 5, "of": 5}
+{"ts": "2026-04-30T05:47:57Z", "stage": "atomize", "event": "variant_detected", "name": "cmp_overflow_safe_4e66bbe_1", "i": 5, "of": 5, "injection": "patch"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "atomize", "event": "variant_committed", "name": "cmp_overflow_safe_4e66bbe_1", "i": 5, "of": 5, "injection": "patch"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "atomize", "event": "done", "committed": 4, "skipped": 1}
+{"ts": "2026-04-30T05:47:57Z", "stage": "runner", "event": "start"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "runner", "event": "compiled"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "runner", "event": "framework_passing", "framework": "etna", "property": "All"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "runner", "event": "framework_passing", "framework": "proptest", "property": "All"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "runner", "event": "framework_passing", "framework": "quickcheck", "property": "All"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "runner", "event": "framework_passing", "framework": "crabcheck", "property": "All"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "runner", "event": "framework_passing", "framework": "hegel", "property": "All"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "runner", "event": "done"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "document", "event": "start"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "document", "event": "bugs_written", "variants": 4}
+{"ts": "2026-04-30T05:47:57Z", "stage": "document", "event": "tasks_written", "tasks": 4}
+{"ts": "2026-04-30T05:47:57Z", "stage": "document", "event": "done"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "validate", "event": "start"}
+{"ts": "2026-04-30T05:47:57Z", "stage": "validate", "event": "check_passed", "check": "A. etna workload check"}
+{"ts": "2026-04-30T05:48:57Z", "stage": "validate", "event": "check_passed", "check": "B1. base builds and tests"}
+{"ts": "2026-04-30T05:48:57Z", "stage": "validate", "event": "check_passed", "check": "B2. per-variant detection"}
+{"ts": "2026-04-30T05:48:57Z", "stage": "validate", "event": "check_passed", "check": "B3. etna binary end-to-end"}
+{"ts": "2026-04-30T05:48:57Z", "stage": "validate", "event": "check_passed", "check": "B4. adapter-body reality check"}
+{"ts": "2026-04-30T05:48:57Z", "stage": "validate", "event": "all_checks_passed"}

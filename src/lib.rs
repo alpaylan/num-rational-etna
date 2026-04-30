@@ -45,6 +45,9 @@ use num_traits::{
 
 mod pow;
 
+#[cfg(feature = "std")]
+pub mod etna;
+
 /// Represents the ratio between two numbers.
 #[derive(Copy, Clone, Debug)]
 #[allow(missing_docs)]
@@ -190,11 +193,21 @@ impl<T: Clone + Integer> Ratio<T> {
 
     #[inline]
     fn into_recip(self) -> Ratio<T> {
+        /*| recip_zero_panic_and_sign_norm [etna] */
         match self.numer.cmp(&T::zero()) {
             cmp::Ordering::Equal => panic!("division by zero"),
             cmp::Ordering::Greater => Ratio::new_raw(self.denom, self.numer),
             cmp::Ordering::Less => Ratio::new_raw(T::zero() - self.denom, T::zero() - self.numer),
         }
+        /*|| recip_zero_panic_and_sign_norm_8c75506_1 */
+        /*|
+        // BUG (8c75506): pre-fix `recip` body did not panic on zero numerator
+        // and did not normalize the sign — the buggy version simply swaps
+        // numerator and denominator, leaving denom negative for negative inputs
+        // and producing 1/0 instead of panicking on zero.
+        Ratio::new_raw(self.denom, self.numer)
+        */
+        /* |*/
     }
 
     /// Rounds towards minus infinity.
@@ -353,9 +366,18 @@ impl<T: Clone + Integer> Ord for Ratio<T> {
 
         // With equal numerators, the denominators can be inversely compared
         if self.numer == other.numer {
+            /*| cmp_zero_numer_equal [etna] */
             if self.numer.is_zero() {
                 return cmp::Ordering::Equal;
             }
+            /*|| cmp_zero_numer_equal_e10ca81_1 */
+            /*|
+            // BUG (e10ca81): pre-fix code did not special-case zero numerators
+            // in the equal-numerators branch. Comparing two zero ratios with
+            // distinct denominators (e.g. 0/1 and 0/2 via new_raw) fell through
+            // to the denominator comparison and reported a non-Equal ordering.
+            */
+            /* |*/
             let ord = self.denom.cmp(&other.denom);
             return if self.numer < T::zero() {
                 ord
@@ -1039,8 +1061,17 @@ impl<T: Clone + Integer + Signed> Signed for Ratio<T> {
 
     #[inline]
     fn is_positive(&self) -> bool {
+        /*| is_pos_neg_zero_excluded [etna] */
         (self.numer.is_positive() && self.denom.is_positive())
             || (self.numer.is_negative() && self.denom.is_negative())
+        /*|| is_pos_neg_zero_excluded_c22e3bf_1 */
+        /*|
+        // BUG (c22e3bf): pre-fix `is_positive` was `!self.is_negative()`,
+        // which incorrectly classifies zero as positive (because zero is
+        // not negative).
+        !self.is_negative()
+        */
+        /* |*/
     }
 
     #[inline]

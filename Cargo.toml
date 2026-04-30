@@ -19,6 +19,15 @@ features = ["std", "num-bigint-std", "serde"]
 
 [dependencies]
 
+# ETNA benchmark runner framework dependencies (used by src/bin/etna.rs
+# and the etna module). Placed in main [dependencies] so the bin target
+# links against them; they are only referenced from the workload harness.
+proptest = "1.0"
+quickcheck = { path = "/Users/akeles/Programming/projects/PbtBenchmark/quickcheck-rs", features = ["etna"] }
+quickcheck_macros = { path = "/Users/akeles/Programming/projects/PbtBenchmark/quickcheck-rs/quickcheck_macros" }
+crabcheck = { path = "/Users/akeles/Programming/projects/PbtBenchmark/crabcheck", features = ["profiling"] }
+hegeltest = "0.3.7"
+
 [dependencies.num-bigint]
 optional = true
 version = "0.4.0"
