@@ -1,6 +1,8 @@
+diff --git a/src/lib.rs b/src/lib.rs
+index 721d65d..e8f089d 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -347,69 +347,16 @@
+@@ -337,60 +337,16 @@ where
  }
  
  // Comparisons
@@ -27,18 +29,9 @@
 -
 -        // With equal numerators, the denominators can be inversely compared
 -        if self.numer == other.numer {
--            /*| cmp_zero_numer_equal [etna] */
 -            if self.numer.is_zero() {
 -                return cmp::Ordering::Equal;
 -            }
--            /*|| cmp_zero_numer_equal_e10ca81_1 */
--            /*|
--            // BUG (e10ca81): pre-fix code did not special-case zero numerators
--            // in the equal-numerators branch. Comparing two zero ratios with
--            // distinct denominators (e.g. 0/1 and 0/2 via new_raw) fell through
--            // to the denominator comparison and reported a non-Equal ordering.
--            */
--            /* |*/
 -            let ord = self.denom.cmp(&other.denom);
 -            return if self.numer < T::zero() {
 -                ord
@@ -76,7 +69,7 @@
      }
  }
  
-@@ -423,7 +370,8 @@
+@@ -404,7 +360,8 @@ impl<T: Clone + Integer> PartialOrd for Ratio<T> {
  impl<T: Clone + Integer> PartialEq for Ratio<T> {
      #[inline]
      fn eq(&self, other: &Self) -> bool {
