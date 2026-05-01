@@ -1,0 +1,21 @@
+# marauders: name=recip_zero_panic_and_sign_norm tags=[etna]
+diff --git a/src/lib.rs b/src/lib.rs
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -193,11 +193,11 @@
+ 
+     #[inline]
+     fn into_recip(self) -> Ratio<T> {
+-        match self.numer.cmp(&T::zero()) {
+-            cmp::Ordering::Equal => panic!("division by zero"),
+-            cmp::Ordering::Greater => Ratio::new_raw(self.denom, self.numer),
+-            cmp::Ordering::Less => Ratio::new_raw(T::zero() - self.denom, T::zero() - self.numer),
+-        }
++        // BUG (8c75506): pre-fix `recip` body did not panic on zero numerator
++        // and did not normalize the sign — the buggy version simply swaps
++        // numerator and denominator, leaving denom negative for negative inputs
++        // and producing 1/0 instead of panicking on zero.
++        Ratio::new_raw(self.denom, self.numer)
+     }
+ 
+     /// Rounds towards minus infinity.

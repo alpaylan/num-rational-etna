@@ -1,0 +1,17 @@
+# marauders: name=is_pos_neg_zero_excluded tags=[etna]
+diff --git a/src/lib.rs b/src/lib.rs
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -1042,8 +1042,10 @@
+ 
+     #[inline]
+     fn is_positive(&self) -> bool {
+-        (self.numer.is_positive() && self.denom.is_positive())
+-            || (self.numer.is_negative() && self.denom.is_negative())
++        // BUG (c22e3bf): pre-fix `is_positive` was `!self.is_negative()`,
++        // which incorrectly classifies zero as positive (because zero is
++        // not negative).
++        !self.is_negative()
+     }
+ 
+     #[inline]

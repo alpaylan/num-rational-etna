@@ -15,7 +15,8 @@ commit_subjects = ["Ratio::recip now corrects sign and fails for zero"]
 summary = "Pre-fix `Ratio::recip` simply swapped numerator and denominator with `Ratio::new_raw(self.denom, self.numer)`. That returns `1/0` (a malformed ratio) when called on zero rather than panicking, and leaves the denominator negative for negative inputs (`(-1/2).recip()` produces `2/-1` instead of `-2/1`)."
 
 [tasks.injection]
-kind = "marauders"
+kind = "patch"
+patch = "patches/recip_zero_panic_and_sign_norm_8c75506_1.patch"
 files = ["src/lib.rs"]
 locations = [{ file = "src/lib.rs", symbol = "Ratio::into_recip" }]
 
@@ -41,7 +42,8 @@ commit_subjects = ["Correct Ratio::is_negative and Ratio::is_positive"]
 summary = "Pre-fix `Signed::is_positive` for `Ratio<T>` was implemented as `!self.is_negative()` and `is_negative` as `self.numer.is_negative() ^ self.denom.is_negative()`. That made zero report as positive (because zero is also not negative), violating the contract that zero is neither positive nor negative."
 
 [tasks.injection]
-kind = "marauders"
+kind = "patch"
+patch = "patches/is_pos_neg_zero_excluded_c22e3bf_1.patch"
 files = ["src/lib.rs"]
 locations = [{ file = "src/lib.rs", symbol = "Signed::is_positive" }]
 
@@ -67,7 +69,8 @@ commit_subjects = ["Fix #49"]
 summary = "Pre-fix `Ord::cmp` had a special case for equal numerators that compared denominators inversely. It did not special-case zero numerators, so two zero ratios with distinct denominators (e.g. `Ratio::new_raw(0, 1)` and `Ratio::new_raw(0, 2)`) were reported as unequal."
 
 [tasks.injection]
-kind = "marauders"
+kind = "patch"
+patch = "patches/cmp_zero_numer_equal_e10ca81_1.patch"
 files = ["src/lib.rs"]
 locations = [{ file = "src/lib.rs", symbol = "Ratio::cmp" }]
 
