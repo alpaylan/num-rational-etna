@@ -1,0 +1,18 @@
+# marauders: name=cmp_zero_numer_equal tags=[etna]
+diff --git a/src/lib.rs b/src/lib.rs
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -356,9 +356,10 @@
+ 
+         // With equal numerators, the denominators can be inversely compared
+         if self.numer == other.numer {
+-            if self.numer.is_zero() {
+-                return cmp::Ordering::Equal;
+-            }
++            // BUG (e10ca81): pre-fix code did not special-case zero numerators
++            // in the equal-numerators branch. Comparing two zero ratios with
++            // distinct denominators (e.g. 0/1 and 0/2 via new_raw) fell through
++            // to the denominator comparison and reported a non-Equal ordering.
+             let ord = self.denom.cmp(&other.denom);
+             return if self.numer < T::zero() {
+                 ord
